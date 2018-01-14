@@ -78,7 +78,7 @@ data$Time <- ymd_hms(paste(data$Date, " ", data$Time))
 
 # Plot the data and save it to a 480x480 .png file in the current working directory.
 png(file = "plot2.png", bg = "transparent", antialias = "none")
- with(data, (plot(Time, Global_active_power, type = "l", xlab = "", ylab = "Global Active Power (kilowatts)")))
+with(data, plot(Time, Global_active_power, type = "l", xlab = "", ylab = "Global Active Power (kilowatts)"))
 dev.off()
 
 # Print a message to the console.
