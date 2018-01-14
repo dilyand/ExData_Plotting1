@@ -80,4 +80,4 @@ hist(data$Global_active_power, col = "red", main = "Global Active Power", xlab =
 dev.off()
 
 # Print a message to the console.
-print("This script has now created a file called 'plot1.png'. Look for it in the current working directory.")
+print(paste("This script has now created a file called 'plot1.png'. Look for it in ", getwd(), "."))
