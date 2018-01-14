@@ -1,12 +1,34 @@
-# This works on a Windows machine. You might need to use the appropriate method on another OS.
+################################################################################
+# This script creates the file plot1.png, which is a required part of the      #
+# submission for the Week 1 project of the Exploratory Data Analysis course.   #
+#                                                                              #
+# By default, the script assumes you already have a file called                #
+# 'household_power_consumption.txt'                                            #
+# in the current working directory.                                            #
+#                                                                              #
+# Uncomment the appropriate lines below to download the original dataset to    #
+# the current working directory.                                               #
+################################################################################
 
-fileUrl <- "https://d396qusza40orc.cloudfront.net/exdata%2Fdata%2Fhousehold_power_consumption.zip"
+
+
+################################################################################
+#
+#        READING IN THE DATA
+
+
+### Download and unzip the file. This works on a Windows machine. You might need
+### to use the appropriate method on another OS.
+
+# fileUrl <- "https://d396qusza40orc.cloudfront.net/exdata%2Fdata%2Fhousehold_power_consumption.zip"
 
 # Download the zip file in the current working directory.
-download.file(fileUrl, destfile = "./power_consumption.zip")
+# download.file(fileUrl, destfile = "./power_consumption.zip")
 
 # Unzip the file in the current working directory.
-unzip("./power_consumption.zip", exdir = getwd())
+# unzip("./power_consumption.zip", exdir = getwd())
+
+### Read in the dataset.
 
 # Load the data.table package.
 if(!require("data.table")) {
@@ -17,6 +39,13 @@ if(!require("data.table")) {
 # Read in the data.
 data <- fread("./household_power_consumption.txt", header = TRUE, sep = ";", na.strings = "?")
 
+
+
+################################################################################
+#
+#        TRANSFORMING THE DATA
+
+
 # Subset the data.
 data <- subset(data, data$Date == "1/2/2007" | data$Date == '2/2/2007')
 
@@ -26,7 +55,7 @@ if(!require("dplyr")) {
   library(dplyr)
 }
 
-# Transform the table to a tibble
+# Transform the table to a tibble.
 data <- tbl_df(data)
 
 # Load the `lubridate` package.
@@ -38,7 +67,17 @@ if(!require("lubridate")) {
 # Convert dates.
 data$Date <- dmy(data$Date)
 
-# Plot the data and save it to a 480x480 .png file.
+
+
+################################################################################
+#
+#        CREATING THE PLOT
+
+
+# Plot the data and save it to a 480x480 .png file in the current working directory.
 png(file = "plot1.png", bg = "transparent", antialias = "none")
 hist(data$Global_active_power, col = "red", main = "Global Active Power", xlab = "Global Active Power (kilowatts)")
 dev.off()
+
+# Print a message to the console.
+print("This script has now created a file called 'plot1.png'. Look for it in the current working directory.")
